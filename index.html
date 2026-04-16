@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>北海道祕境滑雪之旅 ❄️</title>
+    <title>兆亨的北海道祕境滑雪之旅 ❄️</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
         body { font-family: 'Noto Sans TC', sans-serif; background-color: #f0f4f8; }
         .hero-bg {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1542640244-7e672d6cb466?q=80&w=2000&auto=format&fit=crop');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1542640244-7e672d6cb466?q=80&w=2000&auto=format&fit=crop');
             background-size: cover; background-position: center;
         }
         /* 行程展開動畫 */
-        .accordion-content { transition: max-height 0.3s ease-out, padding 0.3s ease; max-height: 0; overflow: hidden; }
-        .accordion-content.active { max-height: 1000px; padding-top: 1rem; padding-bottom: 1rem; }
+        .accordion-content { transition: max-height 0.4s ease-out, padding 0.4s ease; max-height: 0; overflow: hidden; }
+        .accordion-content.active { max-height: 2000px; padding-top: 1rem; padding-bottom: 1rem; }
+        .time-badge { background-color: #eff6ff; color: #1d4ed8; padding: 2px 8px; border-radius: 9999px; font-family: monospace; font-weight: bold; font-size: 0.85rem; margin-right: 6px; border: 1px solid #bfdbfe; }
+        .duration-badge { background-color: #f3f4f6; color: #4b5563; padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; margin-left: 6px; }
     </style>
 </head>
 <body class="text-gray-800 antialiased">
@@ -34,7 +36,7 @@
     <main class="max-w-4xl mx-auto p-4 md:p-6 -mt-8 relative z-10">
         
         <section class="bg-white rounded-2xl shadow-xl p-6 mb-8 border border-gray-100">
-            <h2 class="text-2xl font-bold mb-6 text-blue-900 border-b pb-2"><i class="fa-regular fa-calendar-days mr-2"></i>每日詳細行程</h2>
+            <h2 class="text-2xl font-bold mb-6 text-blue-900 border-b pb-2"><i class="fa-regular fa-calendar-days mr-2"></i>每日詳細時間軸</h2>
             
             <div id="itinerary-container" class="space-y-4">
                 </div>
@@ -49,7 +51,7 @@
     </main>
 
     <footer class="text-center py-6 text-gray-500 text-sm">
-        <p>Made with ❤️ for the best winter trip ever.</p>
+        <p>Made with ❤️ by 專屬規劃師 for Lien Chao-Heng.</p>
     </footer>
 
     <script>
@@ -69,18 +71,20 @@
             document.getElementById('countdown').innerHTML = `${days}天 ${hours}時 ${minutes}分 ${seconds}秒`;
         }, 1000);
 
-        // --- 2. 行程資料庫 ---
+        // --- 2. 行程資料庫 (加入精確時間軸與時長) ---
         const itineraryData = [
             {
                 day: "Day 1 | 1/2 (六)",
                 title: "抵達函館：百萬夜景與異國斜坡",
                 weather: "氣溫：-2°C ~ -6°C ｜ 穿著：洋蔥式穿法，備妥防滑雪靴",
                 details: `
-                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
-                        <li><strong>下午：</strong> 抵達函館機場。前往車站兌換 <b>JR Pass 五日券</b> 並劃位。</li>
-                        <li><strong>傍晚：</strong> 金森紅磚倉庫散策，搭纜車上函館山看百萬夜景。</li>
-                        <li><strong>晚餐推薦：</strong> 幸運小丑漢堡 (中華雞腿堡)。</li>
-                        <li><strong>住宿：</strong> 函館市區飯店。</li>
+                    <ul class="list-none space-y-3 text-gray-700">
+                        <li><span class="time-badge">13:00</span> 抵達函館機場，過海關領行李 <span class="duration-badge">約 1.5h</span></li>
+                        <li><span class="time-badge">14:30</span> 抵達函館車站，兌換 <b>JR Pass</b> 並劃位 <span class="duration-badge">約 0.5h</span></li>
+                        <li><span class="time-badge">15:30</span> 飯店 Check-in，放行李。</li>
+                        <li><span class="time-badge">16:15</span> <b>金森紅磚倉庫</b>散策 <span class="duration-badge">約 1h</span></li>
+                        <li><span class="time-badge">17:30</span> 搭纜車上函館山看<b>百萬夜景</b> <span class="duration-badge">約 1.5h</span></li>
+                        <li><span class="time-badge">19:30</span> 晚餐：幸運小丑漢堡 (中華雞腿堡) <span class="duration-badge">約 1h</span></li>
                     </ul>`
             },
             {
@@ -88,11 +92,14 @@
                 title: "函館 ➔ 釧路：橫跨北海道的鐵道長征",
                 weather: "氣溫：車廂內溫暖，釧路極冷風大 ｜ 穿著：輕薄內搭，防風毛帽必備",
                 details: `
-                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
-                        <li><strong>上午：</strong> 飯店寄出大行李至 D5 旭川 OMO7！只帶輕便背包。函館朝市吃早餐。</li>
-                        <li><strong>移動：</strong> 搭特急北斗號至札幌 ➔ 轉特急大空號至釧路 (共約8-9小時)。</li>
-                        <li><strong>傍晚：</strong> 抵達釧路，前往幣舞橋看世界三大夕陽。</li>
-                        <li><strong>晚餐推薦：</strong> 釧路爐端燒，體驗道地炭火烤魚。</li>
+                    <ul class="list-none space-y-3 text-gray-700">
+                        <li><span class="time-badge">07:00</span> 飯店寄出大行李至 D5 旭川，輕裝出發！</li>
+                        <li><span class="time-badge">07:30</span> 函館朝市吃早餐 (釣花枝體驗) <span class="duration-badge">約 1h</span></li>
+                        <li><span class="time-badge">08:55</span> 🚆 搭乘 <b>特急北斗 5 號</b> 前往札幌 <span class="duration-badge">車程 3.5h</span></li>
+                        <li><span class="time-badge">12:30</span> 抵達札幌站，站內買鐵路便當當午餐 <span class="duration-badge">轉車 1h</span></li>
+                        <li><span class="time-badge">13:42</span> 🚆 轉乘 <b>特急大空 7 號</b> 前往釧路 <span class="duration-badge">車程 4.5h</span></li>
+                        <li><span class="time-badge">18:00</span> 抵達釧路，站前飯店 Check-in。</li>
+                        <li><span class="time-badge">18:45</span> 晚餐：釧路爐端燒 (炉ばた)，體驗炭火烤魚 <span class="duration-badge">約 2h</span></li>
                     </ul>`
             },
             {
@@ -100,10 +107,14 @@
                 title: "釧路 ➔ 阿寒湖：海鮮自由與極致私密溫泉",
                 weather: "氣溫：-8°C ~ -15°C ｜ 穿著：最厚發熱衣、防風褲",
                 details: `
-                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
-                        <li><strong>上午：</strong> 釧路和商市場吃「勝手丼」，自選海鮮鋪滿飯。</li>
-                        <li><strong>下午：</strong> 搭乘阿寒巴士前往阿寒湖，入住 <b>阿寒湖 鄙之座 (Hinanoza)</b>。</li>
-                        <li><strong>晚上：</strong> 享受飯店全室私人露天風呂。逛愛努村看傳統工藝。</li>
+                    <ul class="list-none space-y-3 text-gray-700">
+                        <li><span class="time-badge">09:30</span> 步行至和商市場。</li>
+                        <li><span class="time-badge">10:00</span> 早午餐：和商市場吃<b>「勝手丼」</b> <span class="duration-badge">約 1.5h</span></li>
+                        <li><span class="time-badge">12:00</span> 釧路站前商圈逛逛或喝咖啡。</li>
+                        <li><span class="time-badge">14:50</span> 🚌 搭乘 <b>阿寒巴士 (阿寒線)</b> 前往阿寒湖 <span class="duration-badge">車程 2h</span></li>
+                        <li><span class="time-badge">17:00</span> 抵達阿寒湖，入住 <b>鄙之座 (Hinanoza)</b> 泡湯。</li>
+                        <li><span class="time-badge">19:30</span> 晚餐：飯店內頂級懷石料理 <span class="duration-badge">約 1.5h</span></li>
+                        <li><span class="time-badge">21:00</span> 散步至愛努村 (Ainu Kotan) 看點燈 <span class="duration-badge">約 1h</span></li>
                     </ul>`
             },
             {
@@ -111,11 +122,15 @@
                 title: "阿寒湖 ➔ 旭川：冰雪奇蹟之旅",
                 weather: "氣溫：清晨下探 -20°C ｜ 穿著：腳底暖暖包必備",
                 details: `
-                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
-                        <li><strong>清晨：</strong> 參加導覽，於阿寒湖面上尋找奇蹟般的 <b>霜花 (Frost Flowers)</b>。</li>
-                        <li><strong>上午：</strong> 屈斜路湖砂湯拍天鵝、摩周湖看結冰湖景。</li>
-                        <li><strong>下午：</strong> 搭乘特急列車橫跨半個北海道前往旭川。</li>
-                        <li><strong>晚餐推薦：</strong> 旭川大黑屋成吉思汗烤羊肉。</li>
+                    <ul class="list-none space-y-3 text-gray-700">
+                        <li><span class="time-badge">06:00</span> 參加晨間導覽，尋找 <b>霜花 (Frost Flowers)</b> <span class="duration-badge">約 1.5h</span></li>
+                        <li><span class="time-badge">08:00</span> 回飯店享用早餐並退房。</li>
+                        <li><span class="time-badge">09:30</span> 🚌 搭乘觀光巴士或包車前往 <b>屈斜路湖砂湯</b> 拍天鵝 <span class="duration-badge">停留 1h</span></li>
+                        <li><span class="time-badge">11:30</span> 前往 <b>摩周湖第一展望台</b> 拍結冰藍湖 <span class="duration-badge">停留 1h</span></li>
+                        <li><span class="time-badge">13:30</span> 🚌 抵達摩周/網走車站，準備轉車。</li>
+                        <li><span class="time-badge">14:00</span> 🚆 搭乘 JR 鐵路橫跨中部前往旭川 <span class="duration-badge">車程約 4h</span></li>
+                        <li><span class="time-badge">18:30</span> 抵達旭川，飯店 Check-in。</li>
+                        <li><span class="time-badge">19:30</span> 晚餐：<b>大黑屋</b> 成吉思汗烤羊肉 <span class="duration-badge">約 1.5h</span></li>
                     </ul>`
             },
             {
@@ -123,10 +138,12 @@
                 title: "旭川：萌寵企鵝與入住星野 OMO7",
                 weather: "氣溫：-7°C ~ -12°C ｜ 穿著：厚毛襪、防滑靴",
                 details: `
-                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
-                        <li><strong>上午：</strong> 旭山動物園看冬季限定的企鵝散步。</li>
-                        <li><strong>下午：</strong> 正式入住 <b>OMO7 旭川</b>，迎接已寄達的大行李。</li>
-                        <li><strong>晚上：</strong> 參加 OMO7 滑雪沙龍，聽取隔天雪場情報。</li>
+                    <ul class="list-none space-y-3 text-gray-700">
+                        <li><span class="time-badge">09:40</span> 🚌 旭川站前搭巴士前往動物園 <span class="duration-badge">車程 40m</span></li>
+                        <li><span class="time-badge">10:30</span> <b>旭山動物園</b>，觀賞 11:00 的企鵝散步 <span class="duration-badge">約 3h</span></li>
+                        <li><span class="time-badge">14:00</span> 回到旭川市區，吃旭川醬油拉麵 (青葉或梅光軒) <span class="duration-badge">約 1h</span></li>
+                        <li><span class="time-badge">15:30</span> 正式入住 <b>OMO7 旭川</b>，迎接大行李！</li>
+                        <li><span class="time-badge">19:00</span> 參加飯店一樓的 <b>滑雪沙龍</b> 聽取雪況 <span class="duration-badge">約 0.5h</span></li>
                     </ul>`
             },
             {
@@ -134,9 +151,13 @@
                 title: "旭川：神居滑雪場 (全日飆雪)",
                 weather: "氣溫：-10°C ｜ 穿著：滑雪裝、護目鏡、脖圍",
                 details: `
-                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
-                        <li><strong>全日：</strong> 前往神居滑雪場 (Kamui Ski Links) 享受頂級粉雪。</li>
-                        <li><strong>傍晚：</strong> 回 OMO7 享受白樺木精油桑拿，舒緩肌肉。</li>
+                    <ul class="list-none space-y-3 text-gray-700">
+                        <li><span class="time-badge">08:20</span> 🚌 搭乘 OMO7 專屬雪場接駁車 <span class="duration-badge">車程 40m</span></li>
+                        <li><span class="time-badge">09:00</span> 抵達 <b>神居滑雪場 (Kamui Ski Links)</b>，租借裝備。</li>
+                        <li><span class="time-badge">09:30</span> 全日享受北海道頂級粉雪 <span class="duration-badge">滑行約 6h</span></li>
+                        <li><span class="time-badge">16:30</span> 🚌 搭乘接駁車返回飯店。</li>
+                        <li><span class="time-badge">17:30</span> 享受 OMO7 白樺木精油桑拿，舒緩肌肉 <span class="duration-badge">約 1.5h</span></li>
+                        <li><span class="time-badge">19:30</span> 晚餐：飯店周邊在地居酒屋。</li>
                     </ul>`
             },
             {
@@ -144,10 +165,12 @@
                 title: "旭川 ➔ 札幌：重返繁華市區",
                 weather: "氣溫：-4°C ｜ 穿著：城市冬裝，方便穿脫的外套",
                 details: `
-                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
-                        <li><strong>上午：</strong> 繼續滑雪，或在旭川市區逛逛職人咖啡店。</li>
-                        <li><strong>下午：</strong> 搭乘特急神威號返回札幌，入住 <b>Vessel Inn 札幌中島公園</b>。</li>
-                        <li><strong>晚上：</strong> 前往薄野體驗札幌夜生活與居酒屋。</li>
+                    <ul class="list-none space-y-3 text-gray-700">
+                        <li><span class="time-badge">09:00</span> 自由活動：繼續滑雪半日，或逛旭川買木雕藝品 <span class="duration-badge">約 4h</span></li>
+                        <li><span class="time-badge">14:30</span> 🚆 搭乘 <b>特急神威號 (Kamui)</b> 返回札幌 <span class="duration-badge">車程 1.5h</span></li>
+                        <li><span class="time-badge">16:30</span> 入住 <b>Vessel Inn 札幌中島公園</b>。</li>
+                        <li><span class="time-badge">18:00</span> 前往薄野 (Susukino) 體驗札幌夜生活。</li>
+                        <li><span class="time-badge">19:00</span> 晚餐：札幌串燒或精緻和食料理 <span class="duration-badge">約 2h</span></li>
                     </ul>`
             },
             {
@@ -155,10 +178,13 @@
                 title: "札幌 / 小樽：海鮮神殿與動漫尋寶",
                 weather: "氣溫：小樽海風強約 -5°C ｜ 穿著：防風大衣、毛帽、圍巾",
                 details: `
-                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
-                        <li><strong>早上：</strong> 享用 Vessel Inn 獲獎無數的海鮮丼自助早餐。</li>
-                        <li><strong>下午：</strong> 札幌市區 <b>Animate / 駿河屋</b> 尋寶 (尋找《我的英雄學院》、《葬送的芙莉蓮》海報)。</li>
-                        <li><strong>傍晚：</strong> 前往小樽運河拍攝藍調時分的浪漫煤氣燈雪景。</li>
+                    <ul class="list-none space-y-3 text-gray-700">
+                        <li><span class="time-badge">08:00</span> 享用 Vessel Inn 神級海鮮丼自助早餐 <span class="duration-badge">約 1.5h</span></li>
+                        <li><span class="time-badge">10:30</span> 狸小路商圈 <b>Animate / 駿河屋</b> 動漫海報尋寶 <span class="duration-badge">約 2.5h</span></li>
+                        <li><span class="time-badge">14:30</span> 🚆 搭乘 JR 快速出發前往小樽 <span class="duration-badge">車程 40m</span></li>
+                        <li><span class="time-badge">15:30</span> 逛堺町通 (音樂盒堂、北一硝子) <span class="duration-badge">約 1.5h</span></li>
+                        <li><span class="time-badge">17:00</span> <b>小樽運河</b> 藍調時分夜景拍攝 <span class="duration-badge">約 1h</span></li>
+                        <li><span class="time-badge">18:30</span> 晚餐：小樽政壽司 或 回札幌吃難陀三大蟹。</li>
                     </ul>`
             },
             {
@@ -166,10 +192,12 @@
                 title: "札幌 ➔ 新千歲機場：甜蜜歸途",
                 weather: "氣溫：室內暖氣足 ｜ 穿著：輕便舒適的登機裝",
                 details: `
-                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
-                        <li><strong>上午：</strong> 前往新千歲機場 (提早3小時抵達)。</li>
-                        <li><strong>必吃必買：</strong> Kinotoya 極上牛乳布丁、Royce' 巧克力霜淇淋。</li>
-                        <li><strong>下午：</strong> 帶著滿滿的回憶搭機返回台灣！</li>
+                    <ul class="list-none space-y-3 text-gray-700">
+                        <li><span class="time-badge">08:00</span> 再吃一次海鮮丼早餐，退房。</li>
+                        <li><span class="time-badge">10:00</span> 🚆 搭乘 <b>快速 Airport 號</b> 前往新千歲機場 <span class="duration-badge">車程 40m</span></li>
+                        <li><span class="time-badge">11:00</span> 機場國內線航廈伴手禮大掃貨 <span class="duration-badge">逛街 3h</span></li>
+                        <li><span class="time-badge">12:30</span> 必吃：Kinotoya 極上布丁、Royce' 霜淇淋！</li>
+                        <li><span class="time-badge">14:30</span> 辦理報到手續，準備搭機返台。</li>
                     </ul>`
             }
         ];
@@ -185,7 +213,7 @@
                     <i class="fa-solid fa-chevron-down transform transition-transform" id="icon-${index}"></i>
                 </button>
                 <div id="content-${index}" class="accordion-content px-4 bg-white border-t">
-                    <p class="text-sm text-blue-600 font-semibold mb-3 bg-blue-50 p-2 rounded"><i class="fa-solid fa-cloud-sun mr-2"></i>${item.weather}</p>
+                    <p class="text-sm text-blue-600 font-semibold mb-3 bg-blue-50 p-2 rounded"><i class="fa-solid fa-cloud-sun mr-2"></i> ${item.weather}</p>
                     ${item.details}
                 </div>
             `;
