@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>兆亨的北海道祕境滑雪之旅 ❄️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f0f4f8; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1542640244-7e672d6cb466?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover; background-position: center;
+        }
+        /* 行程展開動畫 */
+        .accordion-content { transition: max-height 0.3s ease-out, padding 0.3s ease; max-height: 0; overflow: hidden; }
+        .accordion-content.active { max-height: 1000px; padding-top: 1rem; padding-bottom: 1rem; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased">
+
+    <header class="hero-bg text-white py-20 px-4 text-center shadow-lg">
+        <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-wider">北海道極地祕境與粉雪之旅</h1>
+        <p class="text-xl md:text-2xl mb-8">2027.01.02 - 01.10 ｜ 函館 ➔ 釧路 ➔ 阿寒 ➔ 旭川 ➔ 札幌</p>
+        <div class="bg-white/20 backdrop-blur-md rounded-xl p-6 inline-block border border-white/30 shadow-xl">
+            <h2 class="text-lg mb-2"><i class="fa-solid fa-plane-departure mr-2"></i>距離出發還剩：</h2>
+            <div id="countdown" class="text-3xl md:text-5xl font-bold font-mono tracking-widest text-blue-200">
+                載入中...
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-4 md:p-6 -mt-8 relative z-10">
+        
+        <section class="bg-white rounded-2xl shadow-xl p-6 mb-8 border border-gray-100">
+            <h2 class="text-2xl font-bold mb-6 text-blue-900 border-b pb-2"><i class="fa-regular fa-calendar-days mr-2"></i>每日詳細行程</h2>
+            
+            <div id="itinerary-container" class="space-y-4">
+                </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
+            <h2 class="text-2xl font-bold mb-6 text-blue-900 border-b pb-2"><i class="fa-solid fa-list-check mr-2"></i>專屬任務清單</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="task-list">
+                </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-6 text-gray-500 text-sm">
+        <p>Made with ❤️ for the best winter trip ever.</p>
+    </footer>
+
+    <script>
+        // --- 1. 倒數計時器邏輯 ---
+        const targetDate = new Date('2027-01-02T00:00:00').getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = "出發啦！享受北海道！";
+                return;
+            }
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById('countdown').innerHTML = `${days}天 ${hours}時 ${minutes}分 ${seconds}秒`;
+        }, 1000);
+
+        // --- 2. 行程資料庫 ---
+        const itineraryData = [
+            {
+                day: "Day 1 | 1/2 (六)",
+                title: "抵達函館：百萬夜景與異國斜坡",
+                weather: "氣溫：-2°C ~ -6°C ｜ 穿著：洋蔥式穿法，備妥防滑雪靴",
+                details: `
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li><strong>下午：</strong> 抵達函館機場。前往車站兌換 <b>JR Pass 五日券</b> 並劃位。</li>
+                        <li><strong>傍晚：</strong> 金森紅磚倉庫散策，搭纜車上函館山看百萬夜景。</li>
+                        <li><strong>晚餐推薦：</strong> 幸運小丑漢堡 (中華雞腿堡)。</li>
+                        <li><strong>住宿：</strong> 函館市區飯店。</li>
+                    </ul>`
+            },
+            {
+                day: "Day 2 | 1/3 (日)",
+                title: "函館 ➔ 釧路：橫跨北海道的鐵道長征",
+                weather: "氣溫：車廂內溫暖，釧路極冷風大 ｜ 穿著：輕薄內搭，防風毛帽必備",
+                details: `
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li><strong>上午：</strong> 飯店寄出大行李至 D5 旭川 OMO7！只帶輕便背包。函館朝市吃早餐。</li>
+                        <li><strong>移動：</strong> 搭特急北斗號至札幌 ➔ 轉特急大空號至釧路 (共約8-9小時)。</li>
+                        <li><strong>傍晚：</strong> 抵達釧路，前往幣舞橋看世界三大夕陽。</li>
+                        <li><strong>晚餐推薦：</strong> 釧路爐端燒，體驗道地炭火烤魚。</li>
+                    </ul>`
+            },
+            {
+                day: "Day 3 | 1/4 (一)",
+                title: "釧路 ➔ 阿寒湖：海鮮自由與極致私密溫泉",
+                weather: "氣溫：-8°C ~ -15°C ｜ 穿著：最厚發熱衣、防風褲",
+                details: `
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li><strong>上午：</strong> 釧路和商市場吃「勝手丼」，自選海鮮鋪滿飯。</li>
+                        <li><strong>下午：</strong> 搭乘阿寒巴士前往阿寒湖，入住 <b>阿寒湖 鄙之座 (Hinanoza)</b>。</li>
+                        <li><strong>晚上：</strong> 享受飯店全室私人露天風呂。逛愛努村看傳統工藝。</li>
+                    </ul>`
+            },
+            {
+                day: "Day 4 | 1/5 (二)",
+                title: "阿寒湖 ➔ 旭川：冰雪奇蹟之旅",
+                weather: "氣溫：清晨下探 -20°C ｜ 穿著：腳底暖暖包必備",
+                details: `
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li><strong>清晨：</strong> 參加導覽，於阿寒湖面上尋找奇蹟般的 <b>霜花 (Frost Flowers)</b>。</li>
+                        <li><strong>上午：</strong> 屈斜路湖砂湯拍天鵝、摩周湖看結冰湖景。</li>
+                        <li><strong>下午：</strong> 搭乘特急列車橫跨半個北海道前往旭川。</li>
+                        <li><strong>晚餐推薦：</strong> 旭川大黑屋成吉思汗烤羊肉。</li>
+                    </ul>`
+            },
+            {
+                day: "Day 5 | 1/6 (三)",
+                title: "旭川：萌寵企鵝與入住星野 OMO7",
+                weather: "氣溫：-7°C ~ -12°C ｜ 穿著：厚毛襪、防滑靴",
+                details: `
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li><strong>上午：</strong> 旭山動物園看冬季限定的企鵝散步。</li>
+                        <li><strong>下午：</strong> 正式入住 <b>OMO7 旭川</b>，迎接已寄達的大行李。</li>
+                        <li><strong>晚上：</strong> 參加 OMO7 滑雪沙龍，聽取隔天雪場情報。</li>
+                    </ul>`
+            },
+            {
+                day: "Day 6 | 1/7 (四)",
+                title: "旭川：神居滑雪場 (全日飆雪)",
+                weather: "氣溫：-10°C ｜ 穿著：滑雪裝、護目鏡、脖圍",
+                details: `
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li><strong>全日：</strong> 前往神居滑雪場 (Kamui Ski Links) 享受頂級粉雪。</li>
+                        <li><strong>傍晚：</strong> 回 OMO7 享受白樺木精油桑拿，舒緩肌肉。</li>
+                    </ul>`
+            },
+            {
+                day: "Day 7 | 1/8 (五)",
+                title: "旭川 ➔ 札幌：重返繁華市區",
+                weather: "氣溫：-4°C ｜ 穿著：城市冬裝，方便穿脫的外套",
+                details: `
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li><strong>上午：</strong> 繼續滑雪，或在旭川市區逛逛職人咖啡店。</li>
+                        <li><strong>下午：</strong> 搭乘特急神威號返回札幌，入住 <b>Vessel Inn 札幌中島公園</b>。</li>
+                        <li><strong>晚上：</strong> 前往薄野體驗札幌夜生活與居酒屋。</li>
+                    </ul>`
+            },
+            {
+                day: "Day 8 | 1/9 (六)",
+                title: "札幌 / 小樽：海鮮神殿與動漫尋寶",
+                weather: "氣溫：小樽海風強約 -5°C ｜ 穿著：防風大衣、毛帽、圍巾",
+                details: `
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li><strong>早上：</strong> 享用 Vessel Inn 獲獎無數的海鮮丼自助早餐。</li>
+                        <li><strong>下午：</strong> 札幌市區 <b>Animate / 駿河屋</b> 尋寶 (尋找《我的英雄學院》、《葬送的芙莉蓮》海報)。</li>
+                        <li><strong>傍晚：</strong> 前往小樽運河拍攝藍調時分的浪漫煤氣燈雪景。</li>
+                    </ul>`
+            },
+            {
+                day: "Day 9 | 1/10 (日)",
+                title: "札幌 ➔ 新千歲機場：甜蜜歸途",
+                weather: "氣溫：室內暖氣足 ｜ 穿著：輕便舒適的登機裝",
+                details: `
+                    <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                        <li><strong>上午：</strong> 前往新千歲機場 (提早3小時抵達)。</li>
+                        <li><strong>必吃必買：</strong> Kinotoya 極上牛乳布丁、Royce' 巧克力霜淇淋。</li>
+                        <li><strong>下午：</strong> 帶著滿滿的回憶搭機返回台灣！</li>
+                    </ul>`
+            }
+        ];
+
+        // 動態生成行程表
+        const container = document.getElementById('itinerary-container');
+        itineraryData.forEach((item, index) => {
+            const acc = document.createElement('div');
+            acc.className = 'border rounded-lg overflow-hidden';
+            acc.innerHTML = `
+                <button class="w-full text-left p-4 bg-gray-50 hover:bg-blue-50 focus:outline-none flex justify-between items-center font-bold text-lg text-blue-800 transition-colors" onclick="toggleAccordion(${index})">
+                    <span>${item.day} - ${item.title}</span>
+                    <i class="fa-solid fa-chevron-down transform transition-transform" id="icon-${index}"></i>
+                </button>
+                <div id="content-${index}" class="accordion-content px-4 bg-white border-t">
+                    <p class="text-sm text-blue-600 font-semibold mb-3 bg-blue-50 p-2 rounded"><i class="fa-solid fa-cloud-sun mr-2"></i>${item.weather}</p>
+                    ${item.details}
+                </div>
+            `;
+            container.appendChild(acc);
+        });
+
+        // 手風琴切換邏輯
+        function toggleAccordion(index) {
+            const content = document.getElementById(`content-${index}`);
+            const icon = document.getElementById(`icon-${index}`);
+            
+            // 關閉其他開啟的
+            document.querySelectorAll('.accordion-content').forEach((el, i) => {
+                if(i !== index) {
+                    el.classList.remove('active');
+                    document.getElementById(`icon-${i}`).classList.remove('rotate-180');
+                }
+            });
+
+            content.classList.toggle('active');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // --- 3. 專屬任務清單 (自動存檔) ---
+        const tasks = [
+            "完成 JR Pass 兌換與指定席劃位",
+            "黑貓宅急便：大行李寄往 OMO7",
+            "品嚐函館幸運小丑漢堡",
+            "和商市場自組一碗海鮮勝手丼",
+            "鄙之座私密風呂泡湯",
+            "清晨尋找阿寒湖的霜花",
+            "旭山動物園拍企鵝散步",
+            "大黑屋成吉思汗烤羊肉",
+            "神居滑雪場享受粉雪",
+            "Vessel Inn 鮭魚卵干貝自由",
+            "駿河屋挖寶 (動漫海報/周邊)",
+            "小樽運河藍調夜景合照",
+            "新千歲吃 Royce' 巧克力霜淇淋"
+        ];
+
+        const taskList = document.getElementById('task-list');
+        // 讀取 LocalStorage
+        const savedTasks = JSON.parse(localStorage.getItem('hokkaidoTasks')) || {};
+
+        tasks.forEach((task, index) => {
+            const isChecked = savedTasks[index] ? 'checked' : '';
+            const textClass = savedTasks[index] ? 'line-through text-gray-400' : 'text-gray-700';
+            
+            const div = document.createElement('div');
+            div.className = 'flex items-center p-3 border rounded-lg hover:bg-gray-50 transition-colors';
+            div.innerHTML = `
+                <input type="checkbox" id="task-${index}" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer" ${isChecked} onchange="updateTask(${index})">
+                <label for="task-${index}" id="label-${index}" class="ml-3 font-medium cursor-pointer ${textClass}">${task}</label>
+            `;
+            taskList.appendChild(div);
+        });
+
+        // 更新任務狀態並存檔
+        function updateTask(index) {
+            const checkbox = document.getElementById(`task-${index}`);
+            const label = document.getElementById(`label-${index}`);
+            
+            savedTasks[index] = checkbox.checked;
+            localStorage.setItem('hokkaidoTasks', JSON.stringify(savedTasks));
+
+            if(checkbox.checked) {
+                label.classList.add('line-through', 'text-gray-400');
+                label.classList.remove('text-gray-700');
+            } else {
+                label.classList.remove('line-through', 'text-gray-400');
+                label.classList.add('text-gray-700');
+            }
+        }
+    </script>
+</body>
+</html>
